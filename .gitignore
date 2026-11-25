@@ -1,0 +1,59 @@
+# Environment variables and credentials (never commit .env files)
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+backend/.venv/
+backend/venv/
+
+# Python bytecode and build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+
+# Pytest, coverage, and static analysis caches
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Local databases and user-generated exports (Phase 3 readiness)
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+data/uploads/
+backend/data/uploads/
+
+# Next.js frontend dependencies and build outputs
+frontend/node_modules/
+node_modules/
+frontend/.next/
+.next/
+frontend/out/
+*.tsbuildinfo
+
+# Editor, IDE, and OS metadata
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
