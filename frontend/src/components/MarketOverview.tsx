@@ -23,6 +23,7 @@ export function MarketOverview() {
   const [health, setHealth] = useState<Health | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const apiAvailable = health?.status === "ok";
 
   const load = useCallback(async () => {
     setBusy(true);
@@ -39,7 +40,9 @@ export function MarketOverview() {
   }, [ticker, source, interval, startDate, endDate]);
 
   useEffect(() => {
-    api<Health>("/health").then(setHealth).catch(() => setHealth(null));
+    api<Health>("/health")
+      .then(setHealth)
+      .catch(() => setHealth({ status: "unavailable", available_csv_tickers: [] }));
     void load();
   }, [load]);
 
@@ -56,7 +59,12 @@ export function MarketOverview() {
   return (
     <div className="page-stack">
       <PageTitle eyebrow="MARKET OVERVIEW / 01" title="Read the tape." description="Explore historical OHLCV data and understand what changed, when, and by how much."
-        action={<span className="live-label"><span className="status-dot" /> API CONNECTED WHEN AVAILABLE</span>} />
+        action={
+          <span className={"live-label " + (health ? apiAvailable ? "live-label-ready" : "live-label-offline" : "")}>
+            <span className={"status-dot " + (health ? apiAvailable ? "status-dot-ready" : "status-dot-offline" : "")} />
+            {health ? apiAvailable ? "API CONNECTED" : "API UNAVAILABLE" : "CONNECTING TO API"}
+          </span>
+        } />
       <Card className="filter-card">
         <form className="filter-grid" onSubmit={submit}>
           <TextField label="Ticker" value={ticker} onChange={setTicker} placeholder="AAPL" required />

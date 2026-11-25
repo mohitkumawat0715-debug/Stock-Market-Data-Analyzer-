@@ -1,13 +1,5 @@
 import Link from "next/link";
-
-const links = [
-  ["/", "Overview"],
-  ["/ticker/AAPL", "Analysis"],
-  ["/backtest", "Backtest"],
-  ["/watchlists", "Watchlists"],
-  ["/portfolio", "Portfolio"],
-  ["/alerts", "Alerts"],
-];
+import { PrimaryNavigation } from "@/components/PrimaryNavigation";
 
 export function Frame({ children }: { children: React.ReactNode }) {
   return (
@@ -17,11 +9,7 @@ export function Frame({ children }: { children: React.ReactNode }) {
           <span className="brand-mark">S</span>
           <span>MARKET<span className="brand-light">/LAB</span></span>
         </Link>
-        <nav className="nav-links" aria-label="Primary navigation">
-          {links.map(([href, label]) => (
-            <Link href={href} key={href}>{label}</Link>
-          ))}
-        </nav>
+        <PrimaryNavigation />
         <span className="local-pill"><span className="status-dot" /> LOCAL WORKSPACE</span>
       </header>
       <main className="site-main">{children}</main>
